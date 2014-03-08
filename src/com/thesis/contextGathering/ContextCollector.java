@@ -12,8 +12,6 @@ import com.thesis.contextGathering.common.ContextItem;
 
 public class ContextCollector implements Runnable{
 	
-	private ContextDAO contextDAO = new ContextDAO();
-	
 	public void run() {
 		MqttClient client;
 		try {
@@ -39,7 +37,7 @@ public class ContextCollector implements Runnable{
 	                    ContextItem newItem = generateContextItem(payload);
 	                    
 	                    if(newItem != null) {
-	                    	contextDAO.store(newItem);
+	                    	ContextDAO.store(newItem);
 	                    }
 	                }
 	                

@@ -14,9 +14,9 @@ public class ContextDAO {
 	public static final String USER = "root";
 	public static final String PASSWORD = "";
 	
-	private final String table = "context_item";
+	private static final String table = "context_item";
 	
-	public void store(ContextItem contextItem) {
+	public static void store(ContextItem contextItem) {
 		Connection conn = null;
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -56,7 +56,7 @@ public class ContextDAO {
 		}
 	}
 	
-	public ArrayList<ContextItem> read(String subject) {
+	public static ArrayList<ContextItem> read(String subject) {
 		if(subject == null || subject.isEmpty()){
 			return null;
 		}
@@ -64,7 +64,7 @@ public class ContextDAO {
 		return read(subject, null);
 	}
 	
-	public ArrayList<ContextItem> read(String subject, ArrayList<String> predicates) {
+	public static ArrayList<ContextItem> read(String subject, ArrayList<String> predicates) {
 		if(subject == null || subject.isEmpty()){
 			return null;
 		}
