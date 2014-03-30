@@ -66,8 +66,10 @@ public class Response {
             			}
             			Element itemElement = responseElement.addElement("item");
             			itemElement.addAttribute("subject", context.getSubject());
-            			itemElement.addElement("predicate", context.getPredicate());
-            			itemElement.addElement("object", context.getObject());
+            			Element predicateElement = itemElement.addElement("predicate");
+            			predicateElement.setText(context.getPredicate());
+            			Element objectElement = itemElement.addElement("object");
+            			objectElement.setText(context.getObject());
             		}
             	}
             }
