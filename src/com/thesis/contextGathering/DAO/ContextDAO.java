@@ -4,17 +4,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.thesis.contextGathering.Server;
 import com.thesis.contextGathering.common.ContextItem;
 
 public class ContextDAO {
 
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	public static final String DB_URL = "jdbc:mysql://localhost/context";
+	public static final String DB_URL = Server.DB_URL;
 	
-	public static final String USER = "root";
-	public static final String PASSWORD = "";
+	public static final String USER = Server.DB_USER;
+	public static final String PASSWORD = Server.DB_PASSWORD;
 	
-	private static final String table = "context_item";
+	private static final String table = Server.DB_CONTEXT_ITEM_TABLE;
 	
 	public static void store(ContextItem contextItem) {
 		Connection conn = null;

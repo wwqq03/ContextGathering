@@ -1,6 +1,7 @@
 package com.thesis.contextGathering;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -15,7 +16,7 @@ public class ContextCollector implements Runnable{
 	public void run() {
 		MqttClient client;
 		try {
-		      client = new MqttClient("tcp://localhost:1883", "server");
+		      client = new MqttClient(Server.MQTT_ADDRESS, Server.MQTT_NAME);
 		      client.setCallback(new MqttCallback() {
 		    	  
 	                @Override
@@ -43,8 +44,10 @@ public class ContextCollector implements Runnable{
 	                
 	          });
 		      client.connect();
-		      client.subscribe("location");
-		      /*ArrayList<String> list = getSubscribeList();
+		      /*client.subscribe("location");
+		      client.subscribe("patientSensor");
+		      client.subscribe("epr");*/
+		      ArrayList<String> list = getSubscribeList();
 		      if(list == null) {
 		    	  System.out.println("Failed in getting subscribe list");
 		    	  client.disconnect();
@@ -53,7 +56,7 @@ public class ContextCollector implements Runnable{
 		      Iterator<String> i = list.iterator();
 		      while(i.hasNext()) {
 		    	  client.subscribe(i.next());
-		      }*/
+		      }
 		      
 		      System.out.println("Context collector started");
 		      
@@ -63,7 +66,13 @@ public class ContextCollector implements Runnable{
 	}
 	
 	private ArrayList<String> getSubscribeList() {
-		return null;
+		String subscribe = Server.MQTT_SUBSCRIBE;
+		String[] subscribeList = subscribe.split(";");
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i = 0; i < subscribeList.length; i++) {
+			result.add(subscribeList[i]);
+		}
+		return result;
 	}
 	
 	private ContextItem generateContextItem(String message) {

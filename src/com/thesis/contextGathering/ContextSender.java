@@ -7,8 +7,8 @@ import com.thesis.contextGathering.common.RequestHandler;
 public class ContextSender implements Runnable {
 	public void run() {
 		try {
-			ServerSocket serverSocket = new ServerSocket(7979);
-			System.out.println("Context sender started on port 7979");
+			ServerSocket serverSocket = new ServerSocket(Integer.valueOf(Server.PORT));
+			System.out.println("Context sender started on port " + Server.PORT);
 			
 			while(true) {
 				Socket clientSocket = serverSocket.accept();
